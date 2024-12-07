@@ -4711,6 +4711,7 @@ end
 local hex_to_bin, bin_to_hex, bin_to_base64, base64_to_bin
 do
    function hex_to_bin(hex_string)
+    warn('hex2str', hex_string)
       return (gsub(hex_string, "%x%x",
          function (hh)
             return char(tonumber(hh, 16))
@@ -4719,6 +4720,7 @@ do
    end
 
    function bin_to_hex(binary_string)
+     warn('123', binary_string)
       return (gsub(binary_string, ".",
          function (c)
             return string_format("%02x", byte(c))
@@ -4742,6 +4744,7 @@ do
    end
 
    function bin_to_base64(binary_string)
+    warn(binary_string, 'asdad')
       local result = {}
       for pos = 1, #binary_string, 3 do
          local c1, c2, c3, c4 = byte(sub(binary_string, pos, pos + 2)..'\0', 1, -1)
@@ -4755,6 +4758,7 @@ do
    end
 
    function base64_to_bin(base64_string)
+     warn('he21str', base64_string)
       local result, chars_qty = {}, 3
       for pos, ch in gmatch(gsub(base64_string, '%s+', ''), '()(.)') do
          local code = base64_symbols[ch]
@@ -4850,6 +4854,7 @@ local function xor_blake2_salt(salt, letter, H_lo, H_hi)
 end
 
 local function blake2s(message, key, salt, digest_size_in_bytes, XOF_length, B2_offset)
+    warn('blake2s', message, key, salt, digest_size_in_bytes, XOF_length, B2_offset)
    -- message:  binary string to be hashed (or nil for "chunk-by-chunk" input mode)
    -- key:      (optional) binary string up to 32 bytes, by default empty string
    -- salt:     (optional) binary string up to 16 bytes, by default empty string
@@ -5044,6 +5049,7 @@ local function blake2b(message, key, salt, digest_size_in_bytes, XOF_length, B2_
 end
 
 local function blake2sp(message, key, salt, digest_size_in_bytes)
+    warn(blake2sp, message, key, salt)
    -- message:  binary string to be hashed (or nil for "chunk-by-chunk" input mode)
    -- key:      (optional) binary string up to 32 bytes, by default empty string
    -- salt:     (optional) binary string up to 16 bytes, by default empty string
@@ -5151,6 +5157,7 @@ local function blake2sp(message, key, salt, digest_size_in_bytes)
 end
 
 local function blake2bp(message, key, salt, digest_size_in_bytes)
+    warn('blake2bp', message, key, salt, digest_size_in_bytes)
    -- message:  binary string to be hashed (or nil for "chunk-by-chunk" input mode)
    -- key:      (optional) binary string up to 64 bytes, by default empty string
    -- salt:     (optional) binary string up to 32 bytes, by default empty string
@@ -5369,6 +5376,7 @@ local function blake2x(inner_func, inner_func_letter, common_W_blake2, block_siz
 end
 
 local function blake2xs(digest_size_in_bytes, message, key, salt)
+    warn(digest_size_in_bytes, message, key, sal)
    -- digest_size_in_bytes:
    --    0..65534       = get finite digest as single Lua string
    --    (-1)           = get infinite digest in "chunk-by-chunk" output mode
@@ -5380,6 +5388,7 @@ local function blake2xs(digest_size_in_bytes, message, key, salt)
 end
 
 local function blake2xb(digest_size_in_bytes, message, key, salt)
+    warn(digest_size_in_bytes, message, key, sal)
    -- digest_size_in_bytes:
    --    0..4294967294       = get finite digest as single Lua string
    --    (-1)                = get infinite digest in "chunk-by-chunk" output mode
@@ -5595,6 +5604,7 @@ local function blake3(message, key, digest_size_in_bytes, message_flags, K, retu
 end
 
 local function blake3_derive_key(key_material, context_string, derived_key_size_in_bytes)
+    warn('3da', key_material, context_string, derived_key_size_in_bytes)
    -- key_material: (string) your source of entropy to derive a key from (for example, it can be a master password)
    --               set to nil for feeding the key material in "chunk-by-chunk" input mode
    -- context_string: (string) unique description of the derived key
