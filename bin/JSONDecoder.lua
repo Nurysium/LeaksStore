@@ -350,14 +350,10 @@ end
 
 
 function json.decode(str)
-  if type(str) ~= "string" then
-    error("fuck, expected argument of type string, got " .. type(str))
-  end
-  local res, idx = parse(str, next_char(str, 1, space_chars, true))
-  idx = next_char(str, idx, space_chars, true)
-  if idx <= #str then
-    decode_error(str, idx, "trailing garbage")
-  end
+  local text = tostring(str)
+  local res, idx = parse(text, next_char(text, 1, space_chars, true))
+  idx = next_char(text, idx, space_chars, true)
+
   return res
 end
 
